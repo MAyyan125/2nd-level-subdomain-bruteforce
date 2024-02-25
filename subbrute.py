@@ -15,14 +15,13 @@ class Color:
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Automate subdomain brute-forcing on second-level domains")
     parser.add_argument("-f", "--file", help="Specify file path to bruteforce subdomains for")
-    parser.add_argument("-a", "--argument", help="Specify Arguments here", type=str)
     return parser.parse_args()
 
 def subfinder(args):
     if args.file:
         with open(args.file) as file:
             for domain in file:
-                result = subprocess.run(["subfinder", "-all", f"-{args.argument}", domain.strip()], capture_output=True, text=True)
+                result = subprocess.run(["subfinder", "-all", "-d", domain.strip()], capture_output=True, text=True)
                 print(Color.CYAN + result.stdout, end="")
 
 def main():
